@@ -1,9 +1,14 @@
 const server = require('./modules/server.js'); 
-const port = 3000;
-server.listen(port, err => {
+const file = require('fs');
+
+const parameter = JSON.parse(file.readFileSync('./options.json', 'utf8'));
+
+
+
+server(parameter.sourceDirectory).listen(parameter.serverPort, err => {
     if(err){
         console.log(err);
         return;
     }
-    console.log("Serer is runing.....");
+    console.log(`Sever is runing on port:${parameter.serverPort}.....`);
 })
