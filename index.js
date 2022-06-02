@@ -5,7 +5,7 @@ const parameter = JSON.parse(file.readFileSync('./options.json', 'utf8'));
 
 
 
-server(parameter.sourceDirectory).listen(parameter.serverPort, err => {
+server(parameter.sourceDirectory).listen(process.env.PORT || parameter.serverPort, err => {
     if(err){
         console.log(err);
         return;
