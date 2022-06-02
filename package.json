@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "telega": "nodemon telega.js"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,7 @@
     "file": "^0.2.2",
     "http": "0.0.1-security",
     "mime-types": "^2.1.35",
+    "node-telegram-bot-api": "^0.57.0",
     "nodemon": "^2.0.16",
     "path": "^0.12.7"
   }
