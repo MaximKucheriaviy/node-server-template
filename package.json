@@ -6,8 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "dev": "nodemon index.js",
-    "telega": "nodemon telega.js"
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -25,6 +24,7 @@
   },
   "homepage": "https://github.com/MaximKucheriaviy/node-server-template#readme",
   "dependencies": {
+    "events": "^3.3.0",
     "file": "^0.2.2",
     "http": "0.0.1-security",
     "mime-types": "^2.1.35",

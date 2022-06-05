@@ -2,6 +2,7 @@ const http = require ('http');
 const file = require('fs');
 const path = require('path');
 const MIME = require('mime-types');
+const messageEvent = require('../modules/events.js');
 
 const startServer = (staticPath) => {
     const server = http.createServer((req, res) => {
@@ -25,6 +26,12 @@ const startServer = (staticPath) => {
                     res.end(data);
                 })
             }
+        }
+        if (req.method === 'POST') {
+            req.on('data', data => {
+                messageEvent.emit('post-coming', JSON.parse(data));
+            })
+            res.end('OK');
         }
     })
     return server;
