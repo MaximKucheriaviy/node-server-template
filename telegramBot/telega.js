@@ -2,6 +2,7 @@ module.exports = (token) => {
     const messageEvent = require('../modules/events.js');
     const runingProcess = [];
     const file = require('fs');
+    const usedIndex = [];
     
     function startProcess(chat, callback){
         if(runingProcess.some(item => item.chat === chat)){
@@ -10,6 +11,10 @@ module.exports = (token) => {
         }
         bot.sendMessage(chat, "Добре");
         callback();
+    }
+
+    function getRandomInt(max) {
+        return Math.floor(Math.random() * max);
     }
     
     function stopProcess(chat){
@@ -22,6 +27,17 @@ module.exports = (token) => {
         clearInterval(process.procesId);
         bot.sendMessage(chat, `Зупиняю процес ${process.procesName}`);
         console.log(`Зупинка процеса "${process.procesName}" в чаті "${process.chat}"`);
+    }
+
+    function startMailing(bot) {
+        file.readFile('./telegramBot/data/tels.json', 'utf8', (err, data) => {
+            if (err) {
+                console.log(err);
+            }
+            const tels = JSON.parse(data);
+            const time = new Date;
+
+        })
     }
     
     const TelegramBot = require('node-telegram-bot-api');
