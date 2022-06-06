@@ -1,5 +1,5 @@
 {
-    "serverPort": 3000,
+    "serverPort": 80,
     "sourceDirectory": "./static",
     "telegramBotToken": "5547277633:AAGNHHebEhhs7AXX7gGAcPRX4lWXEXuoxIc"
 }
