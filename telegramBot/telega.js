@@ -2,7 +2,8 @@ module.exports = (token) => {
     const messageEvent = require('../modules/events.js');
     const runingProcess = [];
     const file = require('fs');
-    const usedIndex = [];
+    const delayTime = 60000;
+    let usedIndex = [];
     
     function startProcess(chat, callback){
         if(runingProcess.some(item => item.chat === chat)){
@@ -30,19 +31,42 @@ module.exports = (token) => {
     }
 
     function startMailing(bot) {
-        file.readFile('./telegramBot/data/tels.json', 'utf8', (err, data) => {
-            if (err) {
-                console.log(err);
-            }
-            const tels = JSON.parse(data);
-            const time = new Date;
-
-        })
+        const time = new Date;
+        if(time.getMinutes() === 0){
+            file.readFile('./telegramBot/data/tels.json', 'utf8', (err, data) => {
+                if (err) {
+                    console.log(err);
+                }
+                const tels = JSON.parse(data);
+                if(tels.length === usedIndex.length){
+                    usedIndex = [];
+                }
+                let index;
+                do{
+                    index = getRandomInt(tels.length);          
+                }while(usedIndex.some(item => item === index));
+                console.log(index);
+                usedIndex.push(index);                
+                    console.log(usedIndex);
+                    file.readFile('./telegramBot/data/subscribers.json', 'utf8', (err, fileData) => {
+                        if(err){
+                            console.log(err);
+                        }
+                        const subscribers = JSON.parse(fileData);
+                        subscribers.forEach(item => {
+                            bot.sendMessage(item, tels[index]);
+                    });
+                })
+            })
+        }
     }
     
     const TelegramBot = require('node-telegram-bot-api');
     const { colours } = require('nodemon/lib/config/defaults');
     const bot = new TelegramBot(token, { polling: true });
+    setInterval(() => {
+        startMailing(bot);
+    }, delayTime);
     console.log("Telega test...");
     bot.on('message', msg => {
         console.log(msg.text);
